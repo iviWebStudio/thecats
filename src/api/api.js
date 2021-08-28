@@ -6,6 +6,7 @@
  */
 
 import {axiosInstance} from './config';
+import axios from "axios";
 
 /**
  * Fetch all categories. from cat API.
@@ -21,8 +22,8 @@ export const fetchAllCategories = async () => {
  * Fetch images by category and page.
  * We are limited fetch results for 10 image per request by defining limit=10.
  *
- * @param {int|string} page     Paged parameter. Default is empty- get first page.
- * @param {int|string} category Category ID or empty string for fetching from all categories.
+ * @param {int} [page]     Paged parameter. Default is empty- get first page.
+ * @param {int} [category] Category ID or empty string for fetching from all categories.
  *
  * @return {Promise<any>}       Promise object.
  */
@@ -44,3 +45,16 @@ export const fetchImageByID = async (imageID) => {
     const response = await axiosInstance.get(`/images/${imageID}`);
     return response.data;
 }
+
+/**
+ * Fetch a random quote for showing when user in 404.
+ *
+ * @return {AxiosPromise} Promise object.
+ */
+export const fetchRandomQuote = () => axios({
+    method: 'get',
+    url: 'https://api.quotable.io/random',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})

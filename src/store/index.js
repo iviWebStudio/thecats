@@ -5,6 +5,7 @@
  *
  * @since 0.1.0
  */
+
 import {configureStore} from "@reduxjs/toolkit";
 import categoriesSlice from "./categoriesSlice";
 import imagesSlice from "./imagesSlice";

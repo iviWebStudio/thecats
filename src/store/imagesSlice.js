@@ -19,10 +19,11 @@ import {fetchImages} from "../api";
  * @type {{isLoading: boolean, images: *[], page: number, error: null}}
  */
 const initialState = {
-  images: [],
-  page: 1,
-  isLoading: false,
-  error: null,
+    images: [],
+    moreImages: [],
+    page: 1,
+    isLoading: false,
+    error: null,
 };
 
 /**
@@ -34,29 +35,34 @@ const initialState = {
  * @type {Slice<{isLoading: boolean, images: *[], page: number, error: null}, {success: reducers.success, loading: reducers.loading, error: reducers.error}, string>}
  */
 const imagesSlice = createSlice({
-  name: "images",
-  initialState,
-  reducers: {
-    loading: (state) => {
-      state.isLoading = true;
+    name: "images",
+    initialState,
+    reducers: {
+        loading: (state) => {
+            state.isLoading = true;
+        },
+        success: (state, {payload}) => {
+            state.isLoading = false;
+            state.error = false;
+            state.images = payload ?? [];
+        },
+        successMore: (state, {payload}) => {
+            state.isLoading = false;
+            state.error = false;
+            state.images = state.images.concat(payload ?? []);
+            state.page += 1;
+        },
+        error: (state, {payload}) => {
+            state.isLoading = false;
+            state.error = payload;
+        },
     },
-    success: (state, {payload}) => {
-      state.isLoading = false;
-      state.error = false;
-      state.images = payload ?? [];
-      state.page += 1;
-    },
-    error: (state, {payload}) => {
-      state.isLoading = false;
-      state.error = payload;
-    },
-  },
 });
 
 /**
  * There we assign all actions to imagesSlicer
  */
-export const {loading, success, error, page} = imagesSlice.actions;
+export const {loading, success, successMore, error, page} = imagesSlice.actions;
 
 /**
  * Getting images per category and page.
@@ -66,14 +72,32 @@ export const {loading, success, error, page} = imagesSlice.actions;
  * @return {(function(*): Promise<void>)|*}
  */
 export const getImages = (page = 1, categoryID = "") => {
-  return async (dispatch) => {
-    dispatch(loading());
-    try {
-      dispatch(success(await fetchImages(page, categoryID)));
-    } catch (error) {
-      dispatch(error(error.toString()));
-    }
-  };
+    return async (dispatch) => {
+        dispatch(loading());
+        try {
+            dispatch(success(await fetchImages(page, categoryID)));
+        } catch (error) {
+            dispatch(error(error.toString()));
+        }
+    };
+};
+
+/**
+ * Getting images per category and page.
+ *
+ * @param {int} page Page number.
+ * @param {int|string} categoryID Category ID. Default is empty string fro fetching from all categories.
+ * @return {(function(*): Promise<void>)|*}
+ */
+export const getMoreImages = (page = 1, categoryID = "") => {
+    return async (dispatch) => {
+        dispatch(loading());
+        try {
+            dispatch(successMore(await fetchImages(page, categoryID)));
+        } catch (error) {
+            dispatch(error(error.toString()));
+        }
+    };
 };
 
 export default imagesSlice.reducer;

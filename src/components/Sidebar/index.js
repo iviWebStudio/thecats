@@ -7,10 +7,10 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {getCategories} from "../../store/categoriesSlice";
 import Skeleton from "react-loading-skeleton";
 
 import './sidebar.scss'
+import {getCategories} from "../../store/categoriesSlice";
 
 /**
  * Sidebar component.

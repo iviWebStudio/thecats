@@ -4,7 +4,9 @@
  * @since 0.1.0
  */
 
-import './content.scss'
+import React from "react";
+import {Route, Switch} from "react-router-dom";
+import routes from "../../app/routes";
 
 /**
  * Content component.
@@ -14,10 +16,17 @@ import './content.scss'
  */
 const Content = () => {
     return (
-        <main>
-            This is main content
-        </main>
-    )
+        <Switch>
+            {routes.map((route, index) => (
+                <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    component={route.component}
+                />
+            ))}
+        </Switch>
+    );
 }
 
 export default Content
