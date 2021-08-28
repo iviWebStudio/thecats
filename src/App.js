@@ -1,9 +1,22 @@
+/**
+ * Main component for application.
+ *
+ * @since 0.1.0
+ */
+
 import "./App.scss";
 import {Content, Header, Sidebar} from "./components";
+import {BrowserRouter as Router} from "react-router-dom";
 
+/**
+ * App component.
+ *
+ * @return {JSX.Element}
+ * @constructor
+ */
 const App = () => {
     return (
-        <div className="App">
+        <Router>
             <div className="container">
                 <Header/>
                 <div className="row">
@@ -15,7 +28,7 @@ const App = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Router>
     );
 }
 
