@@ -1,16 +1,17 @@
 import "./App.scss";
+import {Content, Header, Sidebar} from "./components";
 
 const App = () => {
     return (
         <div className="App">
             <div className="container">
-                <header>The header area</header>
+                <Header/>
                 <div className="row">
                     <div className="col-md-4">
-                        <aside>The sidebar area</aside>
+                        <Sidebar/>
                     </div>
                     <div className="col-md-8">
-                        <main>The content area</main>
+                        <Content/>
                     </div>
                 </div>
             </div>
