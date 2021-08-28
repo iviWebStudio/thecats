@@ -5,6 +5,8 @@
  */
 
 import './header.scss'
+import {NavLink} from "react-router-dom";
+import React from "react";
 
 /**
  * Header component.
@@ -14,7 +16,11 @@ import './header.scss'
  */
 const Header = () => {
     return (
-        <header>The header area</header>
+        <header className="main-header">
+            <NavLink to="/">
+                <h1>The cats<small>v0.1.0</small></h1>
+            </NavLink>
+        </header>
     )
 }
 

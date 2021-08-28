@@ -1,0 +1,22 @@
+.main-header {
+
+  a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #3f006c;
+
+    &:hover {
+      color: #212529;
+    }
+  }
+
+  h1 {
+    position: relative;
+  }
+
+  small {
+    position: absolute;
+    top: 0;
+    font-size: 0.5rem;
+  }
+}
